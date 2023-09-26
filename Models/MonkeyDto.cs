@@ -14,7 +14,7 @@ namespace MonkeyShelter.Models
         public int Weight { get; set; }
         public string EyeColor { get; set; }
         public string Species { get; set; }
-        public DateTime Registered { get; set; }
+        public string Registered { get; set; }
         public string FavoriteFruit { get; set; }
     }
 }

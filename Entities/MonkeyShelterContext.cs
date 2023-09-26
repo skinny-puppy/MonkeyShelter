@@ -19,6 +19,7 @@ namespace MonkeyShelter.Entities
         {
         }
 
-        public System.Data.Entity.DbSet<MonkeyShelter.Entities.Monkey> Monkeys { get; set; }
+        public DbSet<MonkeyShelter.Entities.Monkey> Monkeys { get; set; }
+        public DbSet<MonkeyShelter.Entities.MonkeyFluctuationState> FluctuationStates { get; set;}
     }
 }

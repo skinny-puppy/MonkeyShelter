@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
+using System.Web.WebPages;
 using MonkeyShelter.Entities;
 using MonkeyShelter.Models;
 
@@ -40,6 +42,23 @@ namespace MonkeyShelter.Services
                     Count = g.Count()
                 }).ToList();
         }
+
+        //public List<SpeciesCountDto>GetSpeciesWithCount(DateTime startDate, DateTime endDate)
+        //{
+        //    regDate = _context.Monkeys.Parse,
+
+        //    var speciesCounts = _context.Monkeys
+        //        .Where(e => e.(Registered.AsDateTime) >= startDate && e.Registered <= endDate)
+        //        .GroupBy(e => e.Species)
+        //        .Select(g => new SpeciesCountDto
+        //        {
+        //            Species = g.Key,
+        //            Count = g.Count()
+        //        })
+        //        .ToList();
+
+        //    return Ok(speciesCounts);
+        //}
 
 
         public void AddMonkey(Monkey monkey)

@@ -224,9 +224,7 @@
     <Compile Include="Models\SpeciesCountDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IMonkeyShelterRepository.cs" />
-    <Compile Include="Services\IIvicaService.cs" />
     <Compile Include="Services\MonkeyShelterRepository.cs" />
-    <Compile Include="Services\IvicaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

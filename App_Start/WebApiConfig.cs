@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using MonkeyShelter.Common;
+using System.Web.Http.Cors;
 
 namespace MonkeyShelter
 {
@@ -15,6 +16,11 @@ namespace MonkeyShelter
             // Web API configuration and services
 
             config.DependencyResolver = CastleHelper.GetDependencyResolver();
+
+
+            // Cors
+            var cors = new EnableCorsAttribute("*", "*", "*"); // origins, headers, methods
+            config.EnableCors(cors);
 
             // Web API routes
             config.MapHttpAttributeRoutes();

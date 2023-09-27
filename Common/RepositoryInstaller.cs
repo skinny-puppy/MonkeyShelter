@@ -23,5 +23,12 @@ public class RepositoryInstaller : IWindsorInstaller
             .WithServiceBase()
             .LifestylePerWebRequest()
         );
+
+        container.Register(
+            Classes.FromThisAssembly()
+            .BasedOn(typeof(IFluctuationStateRepository))
+            .WithServiceBase()
+            .LifestylePerWebRequest()
+        );
     }
 }

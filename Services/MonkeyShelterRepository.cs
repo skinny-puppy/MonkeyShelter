@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Remoting.Contexts;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -43,22 +47,27 @@ namespace MonkeyShelter.Services
                 }).ToList();
         }
 
-        //public List<SpeciesCountDto>GetSpeciesWithCount(DateTime startDate, DateTime endDate)
-        //{
-        //    regDate = _context.Monkeys.Parse,
+        public IEnumerable<Monkey> GetSpeciesByDateRange(DateTime startDate, DateTime endDate)
+        {
+            
+            var entities = _context.Monkeys.ToList();
 
-        //    var speciesCounts = _context.Monkeys
-        //        .Where(e => e.(Registered.AsDateTime) >= startDate && e.Registered <= endDate)
-        //        .GroupBy(e => e.Species)
-        //        .Select(g => new SpeciesCountDto
-        //        {
-        //            Species = g.Key,
-        //            Count = g.Count()
-        //        })
-        //        .ToList();
+            
+            List<Monkey> filteredEntities = new List<Monkey>();
+            foreach (var entity in entities)
+            {
+                if (DateTime.TryParse(entity.Registered, out DateTime registeredDate))
+                {
+                    
+                    if (registeredDate >= startDate && registeredDate <= endDate)
+                    {
+                        filteredEntities.Add(entity);
+                    }
+                }
+            }
 
-        //    return Ok(speciesCounts);
-        //}
+            return filteredEntities;
+        }
 
 
         public void AddMonkey(Monkey monkey)

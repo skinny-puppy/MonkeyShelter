@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class drugatabela : DbMigration
+    public partial class FluctuationStateTable : DbMigration
     {
         public override void Up()
         {
@@ -11,10 +11,11 @@
                 "dbo.MonkeyFluctuationStates",
                 c => new
                     {
-                        id = c.Int(nullable: false, identity: true),
-                        State = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        CreatedDate = c.DateTime(nullable: false),
+                        FluctuationState = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.id);
+                .PrimaryKey(t => t.Id);
             
         }
         

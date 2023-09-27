@@ -17,6 +17,10 @@ namespace MonkeyShelter.Common.AutoMapper
             CreateMap<Models.MonkeyDto, Entities.Monkey>();
             CreateMap<Models.MonkeyCreateDto, Entities.Monkey>();
             CreateMap<Models.MonkeyUpdateDto, Entities.Monkey>();
+
+            //MonkeyFluctuationState Repository
+            CreateMap<Entities.MonkeyFluctuationState, Models.MonkeyFluctuationDto>();
+            CreateMap<Models.MonkeyFluctuationDto, Entities.MonkeyFluctuationState>();
         }
     }
 }

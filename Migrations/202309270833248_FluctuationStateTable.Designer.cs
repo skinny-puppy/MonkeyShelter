@@ -7,13 +7,13 @@ namespace MonkeyShelter.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class drugatabela : IMigrationMetadata
+    public sealed partial class FluctuationStateTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(drugatabela));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FluctuationStateTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "202309261656550_drugatabela"; }
+            get { return "202309270833248_FluctuationStateTable"; }
         }
         
         string IMigrationMetadata.Source

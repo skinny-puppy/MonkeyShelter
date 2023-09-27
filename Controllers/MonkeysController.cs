@@ -21,13 +21,16 @@ namespace MonkeyShelter.Controllers
 {
     public class MonkeysController : ApiController
     {
-        private readonly IMonkeyShelterRepository _monkeyShelterRepository;
+        
         private readonly IMapper _mapper;
-        public MonkeysController(IMapper mapper, IMonkeyShelterRepository repo)
-        {
+        private readonly IMonkeyShelterRepository _monkeyShelterRepository;
+        private readonly IFluctuationStateRepository _fluctuationStateRepository;
 
-            _monkeyShelterRepository = repo;
+        public MonkeysController(IMapper mapper, IMonkeyShelterRepository monkeyShelterRepository, IFluctuationStateRepository fluctuationStateRepository)
+        {
             _mapper = mapper;
+            _monkeyShelterRepository = monkeyShelterRepository;
+            _fluctuationStateRepository = fluctuationStateRepository;
         }
 
         //GET ALL ASYNC : api/Monkeys/
@@ -63,8 +66,26 @@ namespace MonkeyShelter.Controllers
                 return NotFound();
             }
 
+            var countLeaves = _fluctuationStateRepository.CountLeavesForToday();
+            var countArrivals = _fluctuationStateRepository.CountArrivalForToday();
+            if (countLeaves > 5)
+            {
+                return BadRequest("Not Allowed over 5 Leaves per day.");
+            }
+
+            else if ((countLeaves - countArrivals) > 2)
+            {
+                return BadRequest("Can't remove more monkeys untill you add monkeys.");
+            }
+
             _monkeyShelterRepository.DeleteMonkey(item);
             await _monkeyShelterRepository.SaveChangesAsync();
+
+            //code for 2nd Table
+            var newFluct = new MonkeyFluctuationState();
+            newFluct.FluctuationState = Common.FluctuationState.Left;
+            _fluctuationStateRepository.AddFluctuation(newFluct);
+            await _fluctuationStateRepository.SaveChangesAsync();
 
             return Ok();
         }
@@ -77,12 +98,23 @@ namespace MonkeyShelter.Controllers
                 return BadRequest(ModelState);
             }
 
+            var count = _fluctuationStateRepository.CountArrivalForToday();
+            if (count > 7)
+            {
+                return BadRequest();
+            }
+
             var newMonkey = _mapper.Map<Monkey>(monkeyDto);
             _monkeyShelterRepository.AddMonkey(newMonkey);
             await _monkeyShelterRepository.SaveChangesAsync();
 
+            //code for 2nd Table
+            var newFluct = new MonkeyFluctuationState();
+            newFluct.FluctuationState = Common.FluctuationState.Arrived;
+            _fluctuationStateRepository.AddFluctuation(newFluct);
+            await _fluctuationStateRepository.SaveChangesAsync();
+            
             var createdMonkeyDto = _mapper.Map<MonkeyDto>(newMonkey);
-
             return CreatedAtRoute("DefaultApi", new { id = createdMonkeyDto.Id }, createdMonkeyDto);
         }
 
@@ -120,6 +152,29 @@ namespace MonkeyShelter.Controllers
         {
             return Ok(_monkeyShelterRepository.GetSpeciesWithCount());
         }
+
+        [HttpGet]
+        [Route("api/count")]
+        public IHttpActionResult CountForToday()
+        {
+            return Ok(_fluctuationStateRepository.CountForToday());
+        }
+
+
+        [HttpGet]
+        [Route("api/countArrival")]
+        public IHttpActionResult CountArrivalForToday()
+        {
+            return Ok(_fluctuationStateRepository.CountArrivalForToday());
+        }
+
+        [HttpGet]
+        [Route("api/speciesdate")]
+        public IHttpActionResult GetSpeciesByDateRange(DateTime startDate, DateTime endDate)
+        {
+            return Ok(_monkeyShelterRepository.GetSpeciesByDateRange(startDate, endDate));
+        }
+
 
 
         //[HttpPatch]

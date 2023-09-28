@@ -141,12 +141,8 @@ namespace MonkeyShelter.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [HttpGet]
-        [Route("api/species")]
-        public IHttpActionResult GetSpecies()
-        {
-            return Ok(_monkeyShelterRepository.GetSpeciesWithCount());
-        }
+
+
 
         [HttpGet]
         [Route("api/count")]
@@ -171,10 +167,16 @@ namespace MonkeyShelter.Controllers
         }
 
         [HttpGet]
-        [Route("api/speciesdate")]
-        public IHttpActionResult GetSpeciesByDateRange(DateTime startDate, DateTime endDate)
+        [Route("api/species")]
+        public IHttpActionResult GetSpecies(DateTime? startDate = null, DateTime? endDate = null)
         {
-            return Ok(_monkeyShelterRepository.GetSpeciesByDateRange(startDate, endDate));
+            if (startDate.HasValue && endDate.HasValue)
+            {
+                return Ok(_monkeyShelterRepository.GetSpeciesByDateRange(startDate.Value, endDate.Value));
+            }
+
+            return Ok(_monkeyShelterRepository.GetSpeciesWithCount());
+
         }
 
     }

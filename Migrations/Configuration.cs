@@ -18,14 +18,15 @@
 
         protected override void Seed(MonkeyShelterContext context)
         {
-            // Check if there is existing data in the table
+            
             if (!context.Monkeys.Any())
             {
-                // Read data from the JSON file
-                string json = File.ReadAllText("monkeycollection.json");
+                
+                string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Migrations", "monkeycollection.json");
+                string json = File.ReadAllText(jsonFilePath);
                 List<Monkey> data = JsonConvert.DeserializeObject<List<Monkey>>(json);
 
-                // Add data to the database
+                
                 context.Monkeys.AddRange(data);
 
                 context.SaveChanges();

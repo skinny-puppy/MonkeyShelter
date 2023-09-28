@@ -47,26 +47,32 @@ namespace MonkeyShelter.Services
                 }).ToList();
         }
 
-        public IEnumerable<Monkey> GetSpeciesByDateRange(DateTime startDate, DateTime endDate)
+        public List<SpeciesCountDto> GetSpeciesByDateRange(DateTime startDate, DateTime endDate)
         {
             
             var entities = _context.Monkeys.ToList();
 
-            
             List<Monkey> filteredEntities = new List<Monkey>();
             foreach (var entity in entities)
             {
                 if (DateTime.TryParse(entity.Registered, out DateTime registeredDate))
                 {
                     
-                    if (registeredDate >= startDate && registeredDate <= endDate)
+                    if (registeredDate.Date >= startDate.Date && registeredDate.Date <= endDate.Date)
                     {
                         filteredEntities.Add(entity);
                     }
                 }
             }
 
-            return filteredEntities;
+            var grouped = filteredEntities.GroupBy(c => c.Species)
+                .Select(g => new SpeciesCountDto
+                {
+                    Species = g.Key,
+                    Count = g.Count()
+                }).ToList();
+
+            return grouped;
         }
 
 

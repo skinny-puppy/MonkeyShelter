@@ -15,7 +15,7 @@ namespace MonkeyShelter.Services
 
         List<SpeciesCountDto> GetSpeciesWithCount();
 
-        IEnumerable<Monkey> GetSpeciesByDateRange(DateTime startDate, DateTime endDate);
+        List<SpeciesCountDto> GetSpeciesByDateRange(DateTime startDate, DateTime endDate);
 
         void AddMonkey(Monkey monkey);
         void DeleteMonkey(Monkey monkey);

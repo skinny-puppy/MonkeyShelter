@@ -9,7 +9,5 @@ namespace MonkeyShelter.Models
     {
         public string Species { get; set; }
         public int Count { get; set; }
-
-        public DateTime Registered { get; set; }
     }
 }

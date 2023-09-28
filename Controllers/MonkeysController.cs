@@ -68,14 +68,14 @@ namespace MonkeyShelter.Controllers
 
             var countLeaves = _fluctuationStateRepository.CountLeavesForToday();
             var countArrivals = _fluctuationStateRepository.CountArrivalForToday();
-            if (countLeaves > 5)
+            if (countLeaves >= 5)
             {
-                return BadRequest("Not Allowed over 5 Leaves per day.");
+                return BadRequest("Not allowed to remove more than 5 monkeys per day.");
             }
 
-            else if ((countLeaves - countArrivals) > 2)
+            else if ((countLeaves - countArrivals) >= 2)
             {
-                return BadRequest("Can't remove more monkeys untill you add monkeys.");
+                return BadRequest("Not allowed to remove more monkeys until you add some.");
             }
 
             _monkeyShelterRepository.DeleteMonkey(item);
@@ -99,9 +99,9 @@ namespace MonkeyShelter.Controllers
             }
 
             var count = _fluctuationStateRepository.CountArrivalForToday();
-            if (count > 7)
+            if (count >= 7)
             {
-                return BadRequest();
+                return BadRequest("Not allowed to add more than 7 monkeys per day.");
             }
 
             var newMonkey = _mapper.Map<Monkey>(monkeyDto);
@@ -126,11 +126,6 @@ namespace MonkeyShelter.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            //if (id != monkeyUpdateDto.Id)
-            //{
-            //    return BadRequest("Mismatched IDs");
-            //}
 
             var existingMonkey = await _monkeyShelterRepository.GetMonkeyAsync(id);
             if (existingMonkey == null)
@@ -169,46 +164,18 @@ namespace MonkeyShelter.Controllers
         }
 
         [HttpGet]
+        [Route("api/countLeaves")]
+        public IHttpActionResult CountLeavesForToday()
+        {
+            return Ok(_fluctuationStateRepository.CountLeavesForToday());
+        }
+
+        [HttpGet]
         [Route("api/speciesdate")]
         public IHttpActionResult GetSpeciesByDateRange(DateTime startDate, DateTime endDate)
         {
             return Ok(_monkeyShelterRepository.GetSpeciesByDateRange(startDate, endDate));
         }
-
-
-
-        //[HttpPatch]
-        //public async Task<IHttpActionResult> PatchMonkey(string id, Delta<MonkeyDto> monkeyDelta)
-        //{
-        //    if (monkeyDelta == null)
-        //    {
-        //        return BadRequest("Invalid patch data");
-        //    }
-
-        //    var existingMonkey = await _monkeyShelterRepository.GetMonkeyAsync(id);
-        //    if (existingMonkey == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var monkeyUpdatedDto = _mapper.Map<MonkeyDto>(existingMonkey);
-
-        //    monkeyDelta.Patch(monkeyUpdatedDto);
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    _mapper.Map(monkeyUpdatedDto, existingMonkey);
-
-        //    await _monkeyShelterRepository.SaveChangesAsync();
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
-
-
-
 
     }
 }

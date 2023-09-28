@@ -55,6 +55,9 @@
     <Reference Include="Castle.Facilities.AspNet.SystemWeb, Version=6.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>packages\Castle.Facilities.AspNet.SystemWeb.6.0.0\lib\net462\Castle.Facilities.AspNet.SystemWeb.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Facilities.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>packages\Castle.LoggingFacility.6.0.0\lib\net462\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Windsor, Version=6.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>packages\Castle.Windsor.6.0.0\lib\net462\Castle.Windsor.dll</HintPath>
     </Reference>
@@ -199,14 +202,14 @@
     <Compile Include="Common\AutoMapperInstall.cs" />
     <Compile Include="Common\AutoMapper\AutoMapperConfig.cs" />
     <Compile Include="Common\AutoMapper\AutoMapperProfile.cs" />
-    <Compile Include="Common\CastleHelper.cs" />
+    <Compile Include="Common\CastleWindsor\CastleHelper.cs" />
     <Compile Include="Common\KeyGenerator.cs" />
     <Compile Include="Common\FluctuationState.cs" />
-    <Compile Include="Common\RepositoryInstaller.cs" />
-    <Compile Include="Common\ServiceInstaller.cs" />
-    <Compile Include="Common\WebApiControllerInstaller.cs" />
-    <Compile Include="Common\WindsorDependencyScope.cs" />
-    <Compile Include="Common\WindsorHttpDependencyResolver.cs" />
+    <Compile Include="Common\CastleWindsor\Installers\RepositoryInstaller.cs" />
+    <Compile Include="Common\CastleWindsor\Installers\ServiceInstaller.cs" />
+    <Compile Include="Common\CastleWindsor\Installers\WebApiControllerInstaller.cs" />
+    <Compile Include="Common\CastleWindsor\WindsorDependencyScope.cs" />
+    <Compile Include="Common\CastleWindsor\WindsorHttpDependencyResolver.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonkeysController.cs" />
     <Compile Include="Entities\Monkey.cs" />
@@ -226,7 +229,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MonkeyCreateDto.cs" />
     <Compile Include="Models\MonkeyDto.cs" />
-    <Compile Include="Models\MonkeyFluctuationDto.cs" />
     <Compile Include="Models\MonkeyUpdateDto.cs" />
     <Compile Include="Models\SpeciesCountDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

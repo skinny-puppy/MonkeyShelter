@@ -12,15 +12,10 @@ namespace MonkeyShelter.Common.AutoMapper
     {
         public AutoMapperProfile()
         {
-            //Register all model with Dtos here
             CreateMap<Entities.Monkey, Models.MonkeyDto>();
             CreateMap<Models.MonkeyDto, Entities.Monkey>();
             CreateMap<Models.MonkeyCreateDto, Entities.Monkey>();
             CreateMap<Models.MonkeyUpdateDto, Entities.Monkey>();
-
-            //MonkeyFluctuationState Repository
-            CreateMap<Entities.MonkeyFluctuationState, Models.MonkeyFluctuationDto>();
-            CreateMap<Models.MonkeyFluctuationDto, Entities.MonkeyFluctuationState>();
         }
     }
 }

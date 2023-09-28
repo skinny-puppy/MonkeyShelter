@@ -16,7 +16,6 @@ public class RepositoryInstaller : IWindsorInstaller
             .LifestylePerWebRequest()
         );
 
-        // Register IMonkeyShelterRepository and its concrete implementation
         container.Register(
             Classes.FromThisAssembly()
             .BasedOn(typeof(IMonkeyShelterRepository))

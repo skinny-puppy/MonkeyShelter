@@ -30,6 +30,7 @@ namespace MonkeyShelter.Controllers
         }
 
         //GET ALL ASYNC : api/Monkeys/
+        [HttpGet]
         [ResponseType(typeof(Monkey))]
         public async Task<IHttpActionResult> GetMonkeysAsync()
         {
@@ -39,7 +40,8 @@ namespace MonkeyShelter.Controllers
 
         }
 
-        //GET MONKEY BY ID ASYNC: api/Monkeys/string
+        //GET MONKEY BY ID ASYNC: api/Monkeys/id
+        [HttpGet]
         [ResponseType(typeof(Monkey))]
         public async Task<IHttpActionResult> GetMonkeyAsync(string id)
         {
@@ -55,7 +57,8 @@ namespace MonkeyShelter.Controllers
 
         }
 
-        //DELETE: api/Monkeys/string
+        //DELETE: api/Monkeys/id
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteMonkey(string id)
         {
             var item = await _monkeyShelterRepository.GetMonkeyAsync(id);
@@ -89,6 +92,7 @@ namespace MonkeyShelter.Controllers
         }
 
         //POST: api/Monkeys
+        [HttpPost]
         public async Task<IHttpActionResult> AddMonkey(MonkeyCreateDto monkeyDto)
         {
             if (!ModelState.IsValid)
@@ -116,7 +120,7 @@ namespace MonkeyShelter.Controllers
             return CreatedAtRoute("DefaultApi", new { id = createdMonkeyDto.Id }, createdMonkeyDto);
         }
 
-        //PUT: api/Monkeys/string
+        //PUT: api/Monkeys/id
         [HttpPut]
         public async Task<IHttpActionResult> UpdateMonkeyWeight(string id, int weight)
         {
@@ -139,31 +143,7 @@ namespace MonkeyShelter.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
-
-
-        [HttpGet]
-        [Route("api/count")]
-        public IHttpActionResult CountForToday()
-        {
-            return Ok(_fluctuationStateRepository.CountForToday());
-        }
-
-
-        [HttpGet]
-        [Route("api/countArrival")]
-        public IHttpActionResult CountArrivalForToday()
-        {
-            return Ok(_fluctuationStateRepository.CountArrivalForToday());
-        }
-
-        [HttpGet]
-        [Route("api/countLeaves")]
-        public IHttpActionResult CountLeavesForToday()
-        {
-            return Ok(_fluctuationStateRepository.CountLeavesForToday());
-        }
-
+        //GET: api/species
         [HttpGet]
         [Route("api/species")]
         public IHttpActionResult GetSpecies(DateTime? startDate = null, DateTime? endDate = null)

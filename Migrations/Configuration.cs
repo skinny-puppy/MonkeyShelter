@@ -21,10 +21,8 @@
             if (!context.Monkeys.Any())
             {
 
-                string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Migrations", "monkeycollection.json");
-                string json = File.ReadAllText(jsonFilePath);
+                string json = File.ReadAllText("monkeycollection.json");
                 List<Monkey> data = JsonConvert.DeserializeObject<List<Monkey>>(json);
-
 
                 context.Monkeys.AddRange(data);
 

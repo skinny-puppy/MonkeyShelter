@@ -1,36 +1,32 @@
-﻿using System;
+﻿using AutoMapper;
+using Castle.Core.Logging;
+using MonkeyShelter.Entities;
+using MonkeyShelter.Models;
+using MonkeyShelter.Services;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using MonkeyShelter.Entities;
-using MonkeyShelter.Models;
 using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
-using AutoMapper;
-using MonkeyShelter.Services;
-using System.Web.Http.OData;
-using System.Web.Configuration;
 
 namespace MonkeyShelter.Controllers
 {
     public class MonkeysController : ApiController
     {
-        
+
         private readonly IMapper _mapper;
         private readonly IMonkeyShelterRepository _monkeyShelterRepository;
         private readonly IFluctuationStateRepository _fluctuationStateRepository;
+        private readonly ILogger _logger;
 
-        public MonkeysController(IMapper mapper, IMonkeyShelterRepository monkeyShelterRepository, IFluctuationStateRepository fluctuationStateRepository)
+        public MonkeysController(IMapper mapper, IMonkeyShelterRepository monkeyShelterRepository, IFluctuationStateRepository fluctuationStateRepository, ILogger logger)
         {
             _mapper = mapper;
             _monkeyShelterRepository = monkeyShelterRepository;
             _fluctuationStateRepository = fluctuationStateRepository;
+            _logger = logger;
         }
 
         //GET ALL ASYNC : api/Monkeys/
@@ -51,6 +47,8 @@ namespace MonkeyShelter.Controllers
             var monkeyEntity = await _monkeyShelterRepository.GetMonkeyAsync(id);
             if (monkeyEntity == null)
             {
+                _logger.Error(
+                    $"Monkey with id {id} wasn't found.");
                 return NotFound();
             }
             return Ok(_mapper.Map<MonkeyDto>(monkeyEntity));
@@ -113,7 +111,7 @@ namespace MonkeyShelter.Controllers
             newFluct.FluctuationState = Common.FluctuationState.Arrived;
             _fluctuationStateRepository.AddFluctuation(newFluct);
             await _fluctuationStateRepository.SaveChangesAsync();
-            
+
             var createdMonkeyDto = _mapper.Map<MonkeyDto>(newMonkey);
             return CreatedAtRoute("DefaultApi", new { id = createdMonkeyDto.Id }, createdMonkeyDto);
         }

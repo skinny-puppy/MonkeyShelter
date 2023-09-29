@@ -3,7 +3,6 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using MonkeyShelter.Entities;
 using MonkeyShelter.Services;
-using System.Web.Mvc.Filters;
 
 public class RepositoryInstaller : IWindsorInstaller
 {

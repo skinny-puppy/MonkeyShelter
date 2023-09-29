@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace MonkeyShelter.Services
 {
@@ -56,7 +55,7 @@ namespace MonkeyShelter.Services
                 .GroupBy(e => e.FluctuationState)
                 .Select(g => g.Count()
                 ).FirstOrDefault();
-                
+
 
             return counts;
         }

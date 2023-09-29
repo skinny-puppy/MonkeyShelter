@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace MonkeyShelter.Entities
 {
@@ -14,12 +10,12 @@ namespace MonkeyShelter.Entities
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-    
+
         public MonkeyShelterContext() : base("name=MonkeyShelterContext")
         {
         }
 
         public DbSet<MonkeyShelter.Entities.Monkey> Monkeys { get; set; }
-        public DbSet<MonkeyShelter.Entities.MonkeyFluctuationState> FluctuationStates { get; set;}
+        public DbSet<MonkeyShelter.Entities.MonkeyFluctuationState> FluctuationStates { get; set; }
     }
 }

@@ -1,9 +1,5 @@
-﻿using Castle.Windsor.Installer;
-using Castle.Windsor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Castle.Windsor;
+using Castle.Windsor.Installer;
 
 namespace MonkeyShelter.Common
 {

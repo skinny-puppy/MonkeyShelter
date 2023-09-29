@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MonkeyShelter.Common;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using MonkeyShelter.Common;
 
 namespace MonkeyShelter.Models
 {

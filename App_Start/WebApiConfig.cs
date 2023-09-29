@@ -1,10 +1,6 @@
-﻿using System;
-using Castle.Windsor;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
+﻿using MonkeyShelter.Common;
+using System;
 using System.Web.Http;
-using MonkeyShelter.Common;
 using System.Web.Http.Cors;
 
 namespace MonkeyShelter

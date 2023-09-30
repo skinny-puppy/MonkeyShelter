@@ -10,7 +10,6 @@ public class LoggerInstaller : IWindsorInstaller
 {
     public void Install(IWindsorContainer container, IConfigurationStore store)
     {
-        log4net.Config.XmlConfigurator.Configure();
         container.AddFacility<LoggingFacility>(f => f.LogUsing<Log4netFactory>().WithConfig("log4net.xml"));
     }
 }

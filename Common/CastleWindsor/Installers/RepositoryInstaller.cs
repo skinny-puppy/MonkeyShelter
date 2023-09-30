@@ -17,14 +17,8 @@ public class RepositoryInstaller : IWindsorInstaller
 
         container.Register(
             Classes.FromThisAssembly()
-            .BasedOn(typeof(IMonkeyShelterRepository))
-            .WithServiceBase()
-            .LifestylePerWebRequest()
-        );
-
-        container.Register(
-            Classes.FromThisAssembly()
-            .BasedOn(typeof(IFluctuationStateRepository))
+            .BasedOn(typeof(IMonkeyShelterRepository), 
+                     typeof(IFluctuationStateRepository))
             .WithServiceBase()
             .LifestylePerWebRequest()
         );
